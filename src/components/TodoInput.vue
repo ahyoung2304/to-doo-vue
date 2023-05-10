@@ -6,14 +6,21 @@ export default {
                 }
     },
     methods:{
-        addTodo:function (){
+        addTodo : function (){
             //로컬스토리지에 저장 - mdn에서 window.localStorage 검색
             //로컬스토리 확인법 : Application 탭에서 Storage
-            // ? - 왜 로컬스토리지에 중복값은 저장이 안되지?
-            localStorage.setItem(this.newTodoItem,this.newTodoItem); //(키,벨류)
-            this.clearInpu();
+            // ? - 왜 로컬스토리지에 중복값은 저장이 안되지? a: 값이 아니라 키가 중복이 안되는 것이었음.
+            let obj = {
+                completed:false,
+                item: this.newTodoItem
+            }
+            let txt=this.newTodoItem
+            if(txt.replace(/\s/gi,'').length > 0)
+            localStorage.setItem(this.newTodoItem,JSON.stringify(obj)); //(키,벨류)
+            // 키가 newTodoItem 설정되어있음.
+            this.clearInput();
         },
-        clearInpu:function (){
+        clearInput:function (){
             this.newTodoItem=''
         }
     }
